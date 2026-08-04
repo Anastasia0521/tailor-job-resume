@@ -25,7 +25,14 @@
     {
       "title": "岗位匹配能力",
       "items": [
-        {"heading": "政策研究", "body": "以真实履历证据说明能力。"}
+        {"heading": "政策研究", "body": "以真实履历证据说明能力。"},
+        {
+          "kind": "paper",
+          "title": "A verified full research paper title",
+          "doi": "10.1234/example.2026.001",
+          "meta": "期刊｜一作｜2026",
+          "body": "说明本人的研究贡献和岗位价值。"
+        }
       ]
     }
   ]
@@ -37,5 +44,8 @@
 - `heading`：项目、经历或能力标题。
 - `meta`：角色、机构和时间等简短信息，可省略。
 - `body`：贡献说明。
+- `kind: "paper"`：将条目标记为科研论文并启用 DOI 与单行标题处理。
+- `title`：论文完整标题。生成器保留完整值，并根据渲染宽度生成显示标题。
+- `doi`：仅填写已经出版社或 Crossref 等可信来源核验的 DOI；使用 `10.xxxx/...` 规范格式，不包含 `https://doi.org/` 前缀。
 
-
+普通条目继续使用 `heading`。论文条目优先使用 `title`，不要把标题和 DOI 手工拼接进 `heading`。
