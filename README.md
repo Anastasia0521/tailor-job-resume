@@ -69,6 +69,8 @@
 - 调整照片宽度与高度
 - 调整照片左右及上下位置
 - 调整头像裁切位置
+- 每份简历使用独立的浏览器暂存空间，避免旧简历覆盖新内容
+- 交付前自动核对论文数量、DOI 链接文字与跳转地址
 
 ### 6. 配套求职内容
 
@@ -155,6 +157,7 @@ tailor-job-resume/
 │   └── paper-doi-rules.md
 └── scripts/
     ├── build_editable_resume.py
+    ├── validate_resume_html.py
     └── privacy_scan.py
 ```
 
