@@ -30,7 +30,10 @@
           "kind": "paper",
           "title": "A verified full research paper title",
           "doi": "10.1234/example.2026.001",
-          "meta": "期刊｜一作｜2026",
+          "journal": "Journal of Example Studies",
+          "level": "SSCI",
+          "authors": "示例作者；共同作者",
+          "year": "2026",
           "body": "说明本人的研究贡献和岗位价值。"
         }
       ]
@@ -47,5 +50,11 @@
 - `kind: "paper"`：将条目标记为科研论文并启用 DOI 与单行标题处理。
 - `title`：论文完整标题。生成器保留完整值，并根据渲染宽度生成显示标题。
 - `doi`：仅填写已经出版社或 Crossref 等可信来源核验的 DOI；使用 `10.xxxx/...` 规范格式，不包含 `https://doi.org/` 前缀。
+- `journal`：期刊正式名称。
+- `level`：论文或期刊等级，仅使用可核验信息。
+- `authors`：按正式署名顺序记录作者。
+- `year`：发表年份或与论文状态一致的年份信息。
 
-普通条目继续使用 `heading`。论文条目优先使用 `title`，不要把标题和 DOI 手工拼接进 `heading`。
+普通条目继续使用 `heading`。论文条目必须使用独立字段，不要把题目、DOI、期刊、等级、作者和年份手工拼接进 `heading` 或 `meta`。
+
+`summary` 与所有 `body` 是简历描述正文，不得包含中文或英文引号、乘号 `×`、`✕` 或加号 `+`。论文题名等必须忠实保留的正式名称不受此限制。
