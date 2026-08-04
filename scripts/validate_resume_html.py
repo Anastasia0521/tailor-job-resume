@@ -58,7 +58,7 @@ def validate(data, html_text):
         elif actual[doi] != "DOI":
             errors.append(f"DOI link text must be DOI: {doi}")
     for index, item in enumerate(papers, 1):
-        for field in ("title", "journal", "level", "authors", "year"):
+        for field in ("title", "journal", "level", "author_rank", "year"):
             if not item.get(field):
                 errors.append(f"paper {index} missing field: {field}")
     if errors:
