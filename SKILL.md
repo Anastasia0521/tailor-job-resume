@@ -75,9 +75,12 @@ description: 根据岗位信息、综合简历、个人照片和可选参考模�
 
 ```powershell
 python scripts/build_editable_resume.py --input resume.json --output "姓名_单位_岗位_可编辑版.html" --photo photo.jpg
+python scripts/validate_resume_html.py --input resume.json --html "姓名_单位_岗位_可编辑版.html"
 ```
 
 JSON 字段见 [references/input-checklist.md](references/input-checklist.md)。生成的 HTML 必须支持：直接编辑文字、自动暂存、预览切换、撤销、下载 HTML、打印/PDF，以及照片宽度、高度、左右位置、上下位置和裁切调整。
+
+必须使用生成脚本处理论文条目，不得绕过脚本把论文手写进普通标题元素。验证脚本未通过时禁止交付。每份 HTML 使用独立的 v3 暂存键，不得读取 v1 或 v2 旧缓存。
 
 ## 6. 验证
 
