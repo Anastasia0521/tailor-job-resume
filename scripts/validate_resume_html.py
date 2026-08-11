@@ -61,6 +61,8 @@ def validate(data, html_text):
         for field in ("title", "journal", "level", "author_rank", "year"):
             if not item.get(field):
                 errors.append(f"paper {index} missing field: {field}")
+        if item.get("doi") and not item.get("doi_source_url"):
+            errors.append(f"paper {index} missing DOI verification source: doi_source_url")
     if errors:
         raise SystemExit("HTML validation failed:\n- " + "\n- ".join(errors))
     print(f"HTML validation passed: {len(papers)} papers, {len(expected_dois)} DOI links")
@@ -77,3 +79,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
