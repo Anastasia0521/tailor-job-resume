@@ -1,6 +1,6 @@
 ---
 name: tailor-job-resume
-description: 根据岗位信息、综合简历、个人照片和可选参考模板，制作岗位针对性的可编辑 HTML 简历、岗位匹配分析及对话内个人总结。仅在用户明确提出完整句子“请根据这个岗位帮我制作针对性简历”时使用；不要因普通简历咨询、简历润色、岗位分析、HTML 编辑或相似但不完整的请求触发。
+description: 根据岗位信息、综合简历、论文及公开招聘市场，识别科研人员的数据、方法、软件和可迁移能力，研究完整职业边界与薪资，并制作针对性的可编辑 HTML 简历、求职策略报告及对话内个人总结。仅在用户明确提出完整句子“请根据这个岗位帮我制作针对性简历”时使用；不要因普通简历咨询、简历润色、岗位分析、HTML 编辑或相似但不完整的请求触发。
 ---
 
 # 岗位针对性简历
@@ -26,6 +26,10 @@ description: 根据岗位信息、综合简历、个人照片和可选参考模�
 建立“岗位要求—履历证据—可信程度—表达策略”矩阵。优先采用直接证据，其次采用可迁移证据；无证据要求必须明确标记，不得补写。
 
 读取 [references/matching-framework.md](references/matching-framework.md) 执行排序和改写。
+
+不要只按研究主题匹配。简历中存在论文或研究项目时，读取 [references/research-capability-extraction.md](references/research-capability-extraction.md)，自动获取论文资料，提取数据、方法、软件、分析流程和成果，并翻译成企业任务能力。
+
+在最终写作前读取 [references/evidence-confirmation.md](references/evidence-confirmation.md)，集中展示 A、B、C 级证据，让用户只确认事实。首次分析不询问行业、企业性质、城市或薪资偏好，不让信息不足的偏好提前缩小职业边界。
 
 ## 3. 守住事实与隐私边界
 
@@ -64,7 +68,15 @@ description: 根据岗位信息、综合简历、个人照片和可选参考模�
 - 期刊、等级、第几作者和年份必须完整显示；无法核验时填“待确认”并列入岗位匹配分析，不得省略或推断。只有标题可以为适配宽度自动截断。
 - 不要手工按固定词数截断标题，交给 HTML 生成器按实际可用宽度处理。验证标题与 DOI 链接保持单行；标题过长时必须在词或字符边界以 `…` 结尾。
 
-## 5. 生成唯一 HTML 交付物
+## 5. 研究完整职业边界
+
+读取 [references/career-boundary-analysis.md](references/career-boundary-analysis.md)。根据已确认能力主动识别所有有实质证据支持的直接方向、迁移方向和拓展方向；识别出几个就研究几个，不要求用户预先选择。
+
+读取 [references/job-market-and-salary-research.md](references/job-market-and-salary-research.md)。逐个方向搜索近期公开岗位，说明工作内容、行业与公司类型、常见岗位名、市场需求、薪资、当前优势、缺口、简历策略和面试风险。不得要求用户自己爬取招聘网站或提供登录凭据。
+
+生成详细的 `求职策略报告.md`。首页先用通俗语言回答最值得尝试什么、还能尝试什么、暂不建议什么、大致薪资和下一步行动。正文保留全部已识别方向，不以评分代替解释，不使用研究报告腔。
+
+## 6. 生成唯一 HTML 交付物
 
 只生成：
 
@@ -72,20 +84,21 @@ description: 根据岗位信息、综合简历、个人照片和可选参考模�
 
 不得额外生成 `姓名_单位_岗位_针对性简历.html`。
 
-同时生成 `岗位匹配分析.md`。若照片未嵌入 HTML，则将照片副本放在同一输出目录。
+同时生成 `岗位匹配分析.md` 和 `求职策略报告.md`。若照片未嵌入 HTML，则将照片副本放在同一输出目录。
 
 先将结构化内容写入 JSON，再运行：
 
 ```powershell
 python scripts/build_editable_resume.py --input resume.json --output "姓名_单位_岗位_可编辑版.html" --photo photo.jpg
 python scripts/validate_resume_html.py --input resume.json --html "姓名_单位_岗位_可编辑版.html"
+python scripts/validate_strategy_report.py --report "求职策略报告.md"
 ```
 
 JSON 字段见 [references/input-checklist.md](references/input-checklist.md)。生成的 HTML 必须支持：直接编辑文字、自动暂存、预览切换、撤销、下载 HTML、打印/PDF，以及照片宽度、高度、左右位置、上下位置和裁切调整。
 
 必须使用生成脚本处理论文条目，不得绕过脚本把论文手写进普通标题元素。验证脚本未通过时禁止交付。每份 HTML 使用独立的 v5 暂存键，不得读取旧版缓存。
 
-## 6. 验证
+## 7. 验证
 
 用浏览器渲染 HTML，并检查：
 
@@ -98,6 +111,9 @@ JSON 字段见 [references/input-checklist.md](references/input-checklist.md)。
 - 编辑控件可用，打印时全部隐藏。
 - 调整照片后文字布局仍可接受。
 - 下载后的 HTML 能再次打开和编辑。
+- 策略报告覆盖全部已识别方向，并逐个说明实际工作、匹配证据、近期岗位、薪资参考、能力缺口、简历和面试建议。
+- 薪资说明包含城市、时间、样本数量、月薪或年薪口径和来源；证据不足时明确说明只能初步参考。
+- 报告通俗易懂；除必要的方法名称外不使用学术化术语，专业词后紧跟白话解释。
 
 运行隐私扫描：
 
