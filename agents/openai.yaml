@@ -1,5 +1,5 @@
 interface:
-  display_name: "岗位针对性简历生成器"
-  short_description: "识别科研能力与职业边界，生成针对性简历和求职策略报告"
-  default_prompt: "Use $tailor-job-resume to 请根据这个岗位帮我制作针对性简历"
+  display_name: "科研能力转化与求职策略"
+  short_description: "探索职业边界与薪资，或制作具体岗位的针对性简历"
+  default_prompt: "Use $tailor-job-resume to 请根据我的履历制定求职策略"
 
