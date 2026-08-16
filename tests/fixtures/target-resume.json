@@ -1,0 +1,25 @@
+{
+  "name": "示例用户",
+  "target": "示例单位数据分析岗位",
+  "contact": ["电话：示例号码", "邮箱：example@example.com"],
+  "summary": "具备空间数据处理、统计分析与研究报告撰写经验，能够完成从问题拆解到结果解释的完整分析流程。",
+  "sections": [
+    {
+      "title": "研究与分析成果",
+      "items": [
+        {
+          "kind": "paper",
+          "title": "面向业务问题的空间数据分析与应用研究",
+          "doi": "10.0000/example.2026.001",
+          "doi_source_url": "https://doi.org/10.0000/example.2026.001",
+          "journal": "示例期刊",
+          "level": "核心期刊",
+          "author_rank": "第一作者",
+          "year": "2026",
+          "body": "完成数据清洗、空间分析、结果验证与研究报告撰写。"
+        }
+      ]
+    }
+  ]
+}
+
