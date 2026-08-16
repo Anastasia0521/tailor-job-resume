@@ -24,7 +24,7 @@ description: 为科研人员和研究生提供两种工作流：从综合简历�
 
 不得要求用户预先整理 DOI、摘要、全文或招聘数据。
 
-读取 [references/paper-method-data-audit.md](references/paper-method-data-audit.md)，逐篇完成全文级字段审计并生成 `论文方法数据审计表.json`。不得只摘录摘要或少数显眼的方法。审计未完成、缺失范围未向用户说明时，不得进入职业方向和招聘市场分析。
+读取 [references/paper-method-data-audit.md](references/paper-method-data-audit.md)，逐篇完成全文级字段审计，并将结果写入求职决策HTML的嵌入数据。不得只摘录摘要或少数显眼的方法。审计未完成、缺失范围未向用户说明时，不得进入职业方向和招聘市场分析。
 
 ## 3. 建立科研与职业能力证据库
 
@@ -36,7 +36,7 @@ description: 为科研人员和研究生提供两种工作流：从综合简历�
 - B级为由已确认方法关系直接推出的能力，必须解释关系。
 - C级为可能具备但不能证明的能力，必须由用户确认。
 
-只让用户确认事实与个人贡献，不让用户预先选择行业、企业性质、城市或薪资。未确认的 C 级能力不得写入简历。将确认结果保存到输出目录的 `能力确认表.md` 和 `能力证据库.json`，不得写入 Skill 目录或公开仓库。
+只让用户确认事实与个人贡献，不让用户预先选择行业、企业性质、城市或薪资。未确认的 C 级能力不得写入简历。将能力确认、能力证据库、论文方法数据审计和职业策略作为结构化数据嵌入最终求职决策HTML，不再把MD或JSON作为用户可见交付物。
 
 论文署名采用固定归属规则：求职者为第一作者、共同第一作者或通讯作者时，默认论文全文中实际使用的数据、模型、方法、软件和分析流程均由本人使用，并按熟练能力记为A级；除非材料或用户明确排除。其他署名不使用该默认规则，必须依据作者贡献声明、简历描述或用户确认确定个人贡献。
 
@@ -48,24 +48,17 @@ description: 为科研人员和研究生提供两种工作流：从综合简历�
 
 逐个方向搜索近期公开岗位，说明实际工作、行业与公司、常见岗位名、招聘需求、薪资、匹配证据、当前缺口、简历策略和面试风险。不得要求用户自己爬取招聘网站或提供账号、密码、Cookie。
 
-生成通俗详细的 `求职策略报告.md`。首页直接回答最值得尝试什么、还能尝试什么、暂不建议什么、大致薪资和下一步行动。薪资必须注明城市、时间、样本数量、月薪或年薪口径和来源；证据不足时明确写只能初步参考。
+生成通俗详细的求职决策内容。首页直接回答最值得尝试什么、还能尝试什么、暂不建议什么、大致薪资和下一步行动。薪资必须注明城市、时间、样本数量、月薪或年薪口径和来源；证据不足时明确写只能初步参考。
 
 ## 5. 完成职业探索模式
 
-职业探索模式生成：
-
-- `能力确认表.md`
-- `能力证据库.json`
-- `论文方法数据审计表.json`
-- `职业方向与岗位关键词.md`
-- `求职策略报告.md`
-
-`职业方向与岗位关键词.md` 应为每个方向列出常见岗位名称、搜索关键词、相关行业和代表性企业类型，方便求职者自行搜索。职业探索模式不要求岗位材料，也不生成单位与岗位专属HTML简历。
+职业探索模式只生成一个用户可见文件：`姓名_求职决策中心.html`。其中整合能力确认、能力证据、论文全文审计、职业方向、岗位关键词、招聘市场、薪资、补强计划和面试策略，并嵌入可供后续复用的结构化数据。职业探索模式不要求岗位材料，也不自动生成对外简历。
 
 运行：
 
 ```powershell
-python scripts/validate_strategy_report.py --report "求职策略报告.md"
+python scripts/build_career_decision_center.py --input decision.json --output "姓名_求职决策中心.html"
+python scripts/validate_decision_center_html.py --html "姓名_求职决策中心.html" --kind exploration
 python scripts/validate_mode_outputs.py --mode exploration --output-dir <输出目录>
 ```
 
@@ -75,24 +68,24 @@ python scripts/validate_mode_outputs.py --mode exploration --output-dir <输出�
 
 按招聘方阅读顺序组织个人概述、岗位匹配能力、教育背景、重点经历、代表成果、方法技能和荣誉协作。正文正式精简，不使用引号强调，也不使用乘号或加号连接描述。对话中另行提供一段 200至350 字的针对性个人总结。
 
-只生成：
+只生成两个用户可见文件：
 
-`姓名_单位_岗位_可编辑版.html`
-
-不得额外生成 `姓名_单位_岗位_针对性简历.html`。同时生成 `岗位匹配分析.md` 和 `求职策略报告.md`。
+- `姓名_单位_岗位_求职决策.html`：仅供求职者本人阅读，整合岗位匹配、证据、缺口、薪资、简历取舍和面试策略。
+- `姓名_单位_岗位_简历.html`：用于对外投递，不得包含内部能力缺口、薪资判断或投递策略。
 
 论文必须通过构建脚本生成单行：`标题或省略标题｜DOI｜期刊名称（等级）｜第几作者｜年份`。DOI 超链接只显示 `DOI`；标题可按宽度缩短，其余四项必须完整，标题左侧与年份右侧分别贴齐版心。
 
 运行：
 
 ```powershell
-python scripts/build_editable_resume.py --input resume.json --output "姓名_单位_岗位_可编辑版.html" --photo photo.jpg
-python scripts/validate_resume_html.py --input resume.json --html "姓名_单位_岗位_可编辑版.html"
-python scripts/validate_strategy_report.py --report "求职策略报告.md"
+python scripts/build_career_decision_center.py --input decision.json --output "姓名_单位_岗位_求职决策.html"
+python scripts/validate_decision_center_html.py --html "姓名_单位_岗位_求职决策.html" --kind target
+python scripts/build_editable_resume.py --input resume.json --output "姓名_单位_岗位_简历.html" --photo photo.jpg
+python scripts/validate_resume_html.py --input resume.json --html "姓名_单位_岗位_简历.html"
 python scripts/validate_mode_outputs.py --mode target --output-dir <输出目录>
 ```
 
-HTML 必须支持文字编辑、自动暂存、预览、撤销、下载、打印或导出PDF，以及照片大小、位置和裁切调整。
+两个HTML都必须支持文字编辑、自动暂存、撤销、下载和打印或导出PDF。简历HTML还必须支持照片大小、位置和裁切调整。默认不另行生成PDF、DOCX、Markdown或独立JSON。
 
 ## 7. 守住事实和隐私边界
 
@@ -109,5 +102,6 @@ HTML 必须支持文字编辑、自动暂存、预览、撤销、下载、打印
 - 运行 `python scripts/privacy_scan.py <skill-or-output-directory>`。
 
 只有对应模式的校验、隐私扫描和视觉检查全部通过时才交付。
+
 
 
