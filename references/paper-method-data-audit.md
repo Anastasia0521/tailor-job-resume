@@ -30,7 +30,7 @@ DOI只用于定位论文。必须继续读取全文的方法、数据、结果�
 
 ## 输出结构
 
-生成 `论文方法数据审计表.json`，顶层包含 `schema_version`、`generated_at`、`papers` 和 `audit_summary`。每篇至少包含：
+在求职决策HTML的 `career-data.paper_audit` 中保存审计对象，包含 `schema_version`、`generated_at`、`papers` 和 `audit_summary`。不再单独交付JSON。每篇至少包含：
 
 - `title`、`doi`、`publication_status`
 - `author_role`、`attribution_rule`
@@ -53,4 +53,5 @@ DOI只用于定位论文。必须继续读取全文的方法、数据、结果�
 - 论文正文实际使用的方法与仅引用的方法已经分开。
 - 全文缺失论文已明确告知用户。
 - 审计表生成后，才允许生成能力证据库和职业市场分析。
+
 
