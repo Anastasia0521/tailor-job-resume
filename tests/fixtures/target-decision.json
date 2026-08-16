@@ -1,0 +1,30 @@
+{
+  "name": "示例用户",
+  "title": "示例单位｜数据分析岗位｜求职决策",
+  "subtitle": "仅供求职者本人查看",
+  "generated_at": "2026-08-16",
+  "sections": [
+    {"title": "岗位匹配结论", "paragraphs": ["方法能力与岗位要求存在直接对应关系。"]},
+    {"title": "证据与缺口", "bullets": ["已确认空间数据分析经验", "需要补充业务场景案例"]},
+    {"title": "投递与面试策略", "bullets": ["突出完整分析流程", "准备方法选择与结果解释案例"]}
+  ],
+  "embedded_data": {
+    "capability_evidence": [{"capability": "空间数据分析", "level": "A"}],
+    "paper_audit": {
+      "schema_version": "1.0",
+      "generated_at": "2026-08-16",
+      "papers": [{
+        "title": "示例论文", "author_role": "第一作者", "attribution_rule": "lead_author_default_skilled",
+        "materials_obtained": ["全文"], "audit_level": "full_text", "data_sources": ["公开数据"],
+        "data_types": ["空间数据"], "preprocessing": ["数据清洗"], "valuation_methods": [],
+        "models": [], "statistical_methods": [], "spatial_methods": ["空间分析"],
+        "machine_learning_methods": [], "software": [], "languages": [], "packages_or_modules": [],
+        "validation": ["结果核查"], "evidence_locations": ["方法部分"], "personal_capabilities": ["空间数据分析"]
+      }],
+      "audit_summary": "示例审计"
+    },
+    "career_strategy": [{"direction": "数据分析", "priority": "优先尝试"}],
+    "job_match": [{"requirement": "数据分析", "evidence": "论文与项目材料"}]
+  }
+}
+
